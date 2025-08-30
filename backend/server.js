@@ -7,11 +7,11 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const HOST = '10.3.104.75'; // Use your local network IP
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : '10.3.104.75';
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:8080', 'http://10.3.104.75:8080', 'http://127.0.0.1:8080'],
+    origin: ['http://localhost:8080', 'http://10.3.104.75:8080', 'http://127.0.0.1:8080', 'https://amishmathur1.github.io'],
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -97,12 +97,17 @@ app.post('/api/generate-pdf', async (req, res) => {
 
         // Wait for file to be written
         stream.on('finish', () => {
+            // Generate the correct URL based on environment
+            const baseUrl = process.env.NODE_ENV === 'production'
+                ? `https://${process.env.RENDER_EXTERNAL_HOSTNAME || 'your-app-name.onrender.com'}`
+                : `http://${HOST}:${PORT}`;
+
             res.json({
                 success: true,
                 filename: filename,
                 filepath: `/uploads/${filename}`,
                 timestamp: timestamp,
-                fullUrl: `http://${HOST}:${PORT}/uploads/${filename}`
+                fullUrl: `${baseUrl}/uploads/${filename}`
             });
         });
 
@@ -144,7 +149,22 @@ app.use('/uploads', express.static(uploadsDir));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', timestamp: new Date().toISOString() });
+    res.json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development',
+        port: PORT,
+        host: HOST
+    });
+});
+
+// Root endpoint for Render health checks
+app.get('/', (req, res) => {
+    res.json({
+        message: 'RailTrack Backend API is running',
+        status: 'OK',
+        timestamp: new Date().toISOString()
+    });
 });
 
 app.listen(PORT, HOST, () => {
