@@ -2,22 +2,26 @@
 
 A mobile-first React Native application that generates scannable QR codes for train tickets and information. The QR code can be scanned by any mobile device and opens a PDF with ticket/railway details.
 
+[![Deploy to GitHub Pages](https://github.com/Amishmathur1/Rail_Dash0.1/actions/workflows/deploy.yml/badge.svg)](https://github.com/Amishmathur1/Rail_Dash0.1/actions/workflows/deploy.yml)
+
 ---
 
 ## Features
-- 📱 **QR Code Generator** – Create QR codes for train tickets.
-- 📄 **PDF Access** – Scanned QR codes open a downloadable/printable PDF.
-- ⚡ **React Native Frontend** – Smooth and responsive UI.
-- 🔑 **Easy Sharing** – QR codes can be shared or printed.
-- 🚀 **Cross-platform** – Works on both Android and iOS.
+
+* 📱 **QR Code Generator** – Create QR codes for train tickets.
+* 📄 **PDF Access** – Scanned QR codes open a downloadable/printable PDF.
+* ⚡ **React Native Frontend** – Smooth and responsive UI.
+* 🔑 **Easy Sharing** – QR codes can be shared or printed.
+* 🚀 **Cross-platform** – Works on both Android and iOS.
 
 ---
 
 ## Tech Stack
-- **React Native** (frontend)
-- **Expo** (development/build)
-- **QRCode Generator** library
-- **PDF rendering** for tickets
+
+* **React Native** (frontend)
+* **Expo** (development/build)
+* **QRCode Generator** library
+* **PDF rendering** for tickets
 
 ---
 
@@ -25,7 +29,6 @@ A mobile-first React Native application that generates scannable QR codes for tr
 
 Clone the repository:
 
-```bash
 git clone https://github.com/Amishmathur1/railtrack-insight.git
 cd railtrack-insight
 
