@@ -145,6 +145,7 @@ export function Inventory() {
     }
   };
 
+  // SIMPLIFIED TEST VERSION - Just return basic content to test rendering
   return (
     <div className="space-y-6">
       {/* Debug Banner */}
@@ -152,200 +153,46 @@ export function Inventory() {
         <strong>Debug:</strong> Inventory component is rendering. Data count: {inventoryData.length}
       </div>
 
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Inventory & Records</h1>
-          <p className="text-muted-foreground">Manage and track railway track fittings</p>
-        </div>
-        <Button className="btn-primary">
-          <Download className="h-4 w-4 mr-2" />
-          Export Data
-        </Button>
+      {/* Simple Test Content */}
+      <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+        <h1 className="text-2xl font-bold">Inventory Page Test</h1>
+        <p>If you can see this, the component is rendering!</p>
+        <p>Search Term: {searchTerm || 'None'}</p>
+        <p>Selected Vendor: {selectedVendor || 'None'}</p>
+        <p>Filtered Data Count: {filteredData.length}</p>
       </div>
 
-      {/* Filters Section */}
+      {/* Basic Form Test */}
       <Card className="dashboard-card">
-        <CardHeader className="pb-4">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Filter className="h-5 w-5 text-primary" />
-            Filters & Search
-          </CardTitle>
+        <CardHeader>
+          <CardTitle>Test Form</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input
-                placeholder="Search QR ID, vendor, or lot..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-
-            <Select value={selectedVendor} onValueChange={setSelectedVendor}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Vendors" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">All Vendors</SelectItem>
-                {vendors.map((vendor) => (
-                  <SelectItem key={vendor} value={vendor}>
-                    {vendor}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={selectedItemType} onValueChange={setSelectedItemType}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Item Types" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">All Item Types</SelectItem>
-                {itemTypes.map((type) => (
-                  <SelectItem key={type} value={type}>
-                    {type}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-              <SelectTrigger>
-                <SelectValue placeholder="All Statuses" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">All Statuses</SelectItem>
-                <SelectItem value="passed">Passed</SelectItem>
-                <SelectItem value="failed">Failed</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Button
-              variant="outline"
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedVendor("");
-                setSelectedItemType("");
-                setSelectedStatus("");
-              }}
-            >
-              Clear Filters
-            </Button>
-          </div>
+          <Input
+            placeholder="Test search input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="mb-4"
+          />
+          <Button onClick={() => alert('Button clicked!')}>
+            Test Button
+          </Button>
         </CardContent>
       </Card>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="dashboard-card text-center p-4">
-          <div className="flex items-center justify-center mb-2">
-            <Package className="h-8 w-8 text-primary" />
-          </div>
-          <div className="text-2xl font-bold">{filteredData.length}</div>
-          <div className="text-sm text-muted-foreground">Total Items</div>
-        </Card>
-
-        <Card className="dashboard-card text-center p-4">
-          <div className="flex items-center justify-center mb-2">
-            <CheckCircle className="h-8 w-8 text-success" />
-          </div>
-          <div className="text-2xl font-bold">
-            {filteredData.filter(item => item.inspectionStatus === "passed").length}
-          </div>
-          <div className="text-sm text-muted-foreground">Passed Inspections</div>
-        </Card>
-
-        <Card className="dashboard-card text-center p-4">
-          <div className="flex items-center justify-center mb-2">
-            <AlertTriangle className="h-8 w-8 text-destructive" />
-          </div>
-          <div className="text-2xl font-bold">
-            {filteredData.filter(item => item.inspectionStatus === "failed").length}
-          </div>
-          <div className="text-sm text-muted-foreground">Failed Inspections</div>
-        </Card>
-
-        <Card className="dashboard-card text-center p-4">
-          <div className="flex items-center justify-center mb-2">
-            <Clock className="h-8 w-8 text-warning" />
-          </div>
-          <div className="text-2xl font-bold">
-            {filteredData.filter(item => item.inspectionStatus === "pending").length}
-          </div>
-          <div className="text-sm text-muted-foreground">Pending Inspections</div>
-        </Card>
-      </div>
-
-      {/* Data Table */}
-      <Card className="data-table">
+      {/* Simple Data Display */}
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Package className="h-5 w-5 text-primary" />
-            Inventory Records
-          </CardTitle>
+          <CardTitle>Test Data Display</CardTitle>
         </CardHeader>
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader className="table-header">
-              <TableRow>
-                <TableHead>QR ID</TableHead>
-                <TableHead>Vendor Name</TableHead>
-                <TableHead>Lot Number</TableHead>
-                <TableHead>Item Type</TableHead>
-                <TableHead>Manufacture Date</TableHead>
-                <TableHead>Supply Date</TableHead>
-                <TableHead>Warranty Expiry</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Location</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredData.map((item) => (
-                <TableRow key={item.qrId} className="hover:bg-muted/30">
-                  <TableCell className="font-medium">{item.qrId}</TableCell>
-                  <TableCell>{item.vendor}</TableCell>
-                  <TableCell>{item.lotNumber}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{item.itemType}</Badge>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-3 w-3 text-muted-foreground" />
-                      {item.manufactureDate}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-3 w-3 text-muted-foreground" />
-                      {item.supplyDate}
-                    </div>
-                  </TableCell>
-                  <TableCell>{item.warrantyExpiry}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      {getStatusIcon(item.inspectionStatus)}
-                      {getStatusBadge(item.inspectionStatus)}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-1">
-                      <MapPin className="h-3 w-3 text-muted-foreground" />
-                      {item.location}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="sm">
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        <CardContent>
+          <div className="space-y-2">
+            {inventoryData.slice(0, 3).map((item, index) => (
+              <div key={index} className="p-2 border rounded">
+                <strong>{item.qrId}</strong> - {item.vendor} - {item.itemType}
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
     </div>
