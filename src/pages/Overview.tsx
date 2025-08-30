@@ -2,10 +2,10 @@ import { KPICard } from "@/components/overview/KPICard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Package, 
-  Users, 
-  Shield, 
+import {
+  Package,
+  Users,
+  Shield,
   AlertTriangle,
   QrCode,
   Calendar,
@@ -13,6 +13,10 @@ import {
   TrendingUp
 } from "lucide-react";
 import railwayHero from "@/assets/railway-hero.jpg";
+
+interface OverviewProps {
+  onTabChange?: (tab: string) => void;
+}
 
 const recentActivity = [
   { id: "QR-2024-001", vendor: "RailTech Solutions", item: "Elastic Rail Clip", date: "2024-01-15" },
@@ -28,7 +32,19 @@ const alerts = [
   { type: "inspection", message: "Zone A inspection overdue", severity: "medium" },
 ];
 
-export function Overview() {
+export function Overview({ onTabChange }: OverviewProps) {
+  const handleGenerateQR = () => {
+    if (onTabChange) {
+      onTabChange("qr-generator");
+    }
+  };
+
+  const handleViewReports = () => {
+    if (onTabChange) {
+      onTabChange("analytics");
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Hero Section */}
@@ -42,19 +58,19 @@ export function Overview() {
               Monitor, track, and manage railway infrastructure components with precision and reliability.
             </p>
             <div className="flex gap-3">
-              <Button size="lg" className="btn-primary">
+              <Button size="lg" className="btn-primary" onClick={handleGenerateQR}>
                 <QrCode className="h-5 w-5 mr-2" />
                 Generate QR Code
               </Button>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" onClick={handleViewReports}>
                 View Reports
               </Button>
             </div>
           </div>
           <div className="relative">
-            <img 
-              src={railwayHero} 
-              alt="Railway Infrastructure" 
+            <img
+              src={railwayHero}
+              alt="Railway Infrastructure"
               className="rounded-lg shadow-lg object-cover w-full h-64"
             />
           </div>
@@ -134,22 +150,21 @@ export function Overview() {
           <CardContent>
             <div className="space-y-4">
               {alerts.map((alert, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="flex items-start gap-3 p-3 rounded-lg border border-border hover:bg-muted/30 transition-colors"
                 >
-                  <div className={`p-2 rounded-full ${
-                    alert.severity === 'high' ? 'bg-destructive/10 text-destructive' :
+                  <div className={`p-2 rounded-full ${alert.severity === 'high' ? 'bg-destructive/10 text-destructive' :
                     alert.severity === 'warning' ? 'bg-warning/10 text-warning' :
-                    'bg-primary/10 text-primary'
-                  }`}>
+                      'bg-primary/10 text-primary'
+                    }`}>
                     <AlertTriangle className="h-4 w-4" />
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-medium text-foreground">{alert.message}</p>
                     <p className="text-xs text-muted-foreground mt-1">
                       {alert.type === 'warranty' ? 'Warranty Management' :
-                       alert.type === 'defect' ? 'Quality Control' : 'Inspection Schedule'}
+                        alert.type === 'defect' ? 'Quality Control' : 'Inspection Schedule'}
                     </p>
                   </div>
                 </div>

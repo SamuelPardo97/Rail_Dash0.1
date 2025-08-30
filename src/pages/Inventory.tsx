@@ -104,6 +104,9 @@ export function Inventory() {
   const [selectedItemType, setSelectedItemType] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
 
+  console.log("Inventory component rendered"); // Debug log
+  console.log("Inventory data length:", inventoryData.length); // Debug log
+
   const filteredData = inventoryData.filter((item) => {
     return (
       (searchTerm === "" ||
@@ -144,6 +147,11 @@ export function Inventory() {
 
   return (
     <div className="space-y-6">
+      {/* Debug Banner */}
+      <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+        <strong>Debug:</strong> Inventory component is rendering. Data count: {inventoryData.length}
+      </div>
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Inventory & Records</h1>

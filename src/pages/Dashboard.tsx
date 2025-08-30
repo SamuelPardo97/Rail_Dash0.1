@@ -12,7 +12,7 @@ export function Dashboard() {
   const renderTabContent = () => {
     switch (currentTab) {
       case "overview":
-        return <Overview />;
+        return <Overview onTabChange={setCurrentTab} />;
       case "qr-generator":
         return <QRGenerator />;
       case "inventory":
@@ -22,7 +22,7 @@ export function Dashboard() {
       case "users":
         return <Users />;
       default:
-        return <Overview />;
+        return <Overview onTabChange={setCurrentTab} />;
     }
   };
 
