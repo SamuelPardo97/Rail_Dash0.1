@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://amishmathur1.github.io/Rail_Dash0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
