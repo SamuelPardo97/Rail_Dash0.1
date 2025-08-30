@@ -81,7 +81,7 @@ export function QRGenerator() {
 
     try {
       // First, generate the PDF
-      const pdfResponse = await fetch('http://10.3.104.75:5000/api/generate-pdf', {
+      const pdfResponse = await fetch('https://rail-dash0-1.onrender.com/api/generate-pdf', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -103,10 +103,10 @@ export function QRGenerator() {
       const pdfData = await pdfResponse.json();
 
       // Use the full URL provided by the backend
-      const pdfUrl = pdfData.fullUrl || `http://10.3.104.75:5000${pdfData.filepath}`;
+      const pdfUrl = pdfData.fullUrl || `https://rail-dash0-1.onrender.com${pdfData.filepath}`;
 
       // Now generate the QR code that links to the PDF
-      const qrResponse = await fetch('http://10.3.104.75:5000/api/generate-qr', {
+      const qrResponse = await fetch('https://rail-dash0-1.onrender.com/api/generate-qr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
